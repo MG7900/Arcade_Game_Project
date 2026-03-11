@@ -18,7 +18,7 @@ import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-
+//ninja game regarding picking up weapons and throwing them in x and y directions to escape other ninjas
 //*******************************************************************************
 // Class Definition Section
 
