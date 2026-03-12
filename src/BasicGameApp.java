@@ -38,11 +38,12 @@ public class BasicGameApp implements Runnable {
    public JPanel panel;
    
 	public BufferStrategy bufferStrategy;
-	public Image astroPic;
+
+    public Image ninjaPic;
 
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
-	private Ninja astro;
+	public Ninja ninja;
 
 
    // Main method definition
@@ -63,8 +64,9 @@ public class BasicGameApp implements Runnable {
        
       //variable and objects
       //create (construct) the objects needed for the game and load up 
-		astroPic = Toolkit.getDefaultToolkit().getImage("astronaut.png"); //load the picture
-		astro = new Ninja(10,100);
+		ninjaPic = Toolkit.getDefaultToolkit().getImage("Ninja.png"); //load the picture
+
+		ninja = new Ninja(10,100);
 
 
 	}// BasicGameApp()
@@ -92,7 +94,7 @@ public class BasicGameApp implements Runnable {
 	public void moveThings()
 	{
       //calls the move( ) code in the objects
-		astro.move();
+		ninja.move();
 
 	}
 	
@@ -142,9 +144,9 @@ public class BasicGameApp implements Runnable {
 		Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
 		g.clearRect(0, 0, WIDTH, HEIGHT);
 
-      //draw the image of the astronaut
-		g.drawImage(astroPic, astro.xpos, astro.ypos, astro.width, astro.height, null);
-
+      //draw the image of the ninja
+		g.drawImage(ninjaPic, ninja.xpos, ninja.ypos, ninja.width, ninja.height, null);
+        g.drawRect(ninja.xpos+5, ninja.ypos+3, 47, 43);
 		g.dispose();
 
 		bufferStrategy.show();
