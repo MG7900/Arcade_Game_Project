@@ -1,10 +1,10 @@
 import java.awt.*;
-
-public class Shuriken {
+public class Kunai {
 
     //todo: make this a pickup weapon for the Ninja
     //todo: get the picture for this ✅
     //todo: think if this would be possible for the array-generated ninja's to also pick up and use
+
 
     public int xpos;
     public int ypos;
@@ -14,7 +14,7 @@ public class Shuriken {
     public int height;
     public Rectangle hitbox;
 
-    public Shuriken(int pXpos, int pYpos) {
+    public Kunai(int pXpos, int pYpos) {
 
         xpos = pXpos;
         ypos = pYpos;
@@ -25,13 +25,12 @@ public class Shuriken {
         hitbox = new Rectangle(xpos, ypos, 55, 77);
     }
 
-    public void move(){
+    public void move() {
         //ths freeze buff also wraps around the map
-        if(xpos < 0 || xpos > 950){
+        if (xpos < 0 || xpos > 950) {
             dx = -dx;
         }
-
-        if(ypos < 0 || ypos > 620){
+        if (ypos < 0 || ypos > 620) {
             dy = -dy;
         }
         xpos = xpos + dx;
@@ -39,6 +38,3 @@ public class Shuriken {
         hitbox = new Rectangle(xpos, ypos, 55, 60);
     }
 }
-
-
-

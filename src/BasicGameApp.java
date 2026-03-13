@@ -40,11 +40,16 @@ public class BasicGameApp implements Runnable {
 	public BufferStrategy bufferStrategy;
 
     public Image ninjaPic;
+    public Image Freeze_BuffPic;
+    public Image KunaiPic;
+    public Image ShurikenPic;
 
    //Declare the objects used in the program
    //These are things that are made up of more than one variable type
 	public Ninja ninja;
-
+    public Kunai kunai;
+    public Shuriken shuriken;
+    public Freeze_Buff freeze_buff;
 
    // Main method definition
    // This is the code that runs first and automatically
@@ -65,9 +70,12 @@ public class BasicGameApp implements Runnable {
       //variable and objects
       //create (construct) the objects needed for the game and load up 
 		ninjaPic = Toolkit.getDefaultToolkit().getImage("Ninja.png"); //load the picture
+        ShurikenPic = Toolkit.getDefaultToolkit().getImage("Shuriken.png");
+        KunaiPic= Toolkit.getDefaultToolkit().getImage("Kunai.png");
+        Freeze_BuffPic = Toolkit.getDefaultToolkit().getImage("Freeze_Buff.png");
 
 		ninja = new Ninja(10,100);
-
+        //todo: do the same for other game elements
 
 	}// BasicGameApp()
 
@@ -141,12 +149,20 @@ public class BasicGameApp implements Runnable {
 
 	//paints things on the screen using bufferStrategy
 	private void render() {
+        //todo: add keylistener and mouselistener etc
+        //todo: render other elements
+
 		Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
 		g.clearRect(0, 0, WIDTH, HEIGHT);
 
       //draw the image of the ninja
 		g.drawImage(ninjaPic, ninja.xpos, ninja.ypos, ninja.width, ninja.height, null);
         g.drawRect(ninja.xpos+5, ninja.ypos+3, 47, 43);
+
+        g.drawImage(KunaiPic, kunai.xpos, kunai.ypos, kunai.width, kunai.height, null);
+
+        g.drawImage(ShurikenPic, shuriken.xpos, shuriken.ypos, shuriken.width, shuriken.height, null);
+
 		g.dispose();
 
 		bufferStrategy.show();
