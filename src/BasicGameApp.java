@@ -13,6 +13,10 @@
 
 //Graphics Libraries
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
 import java.awt.*;
 import javax.swing.JFrame;
@@ -22,7 +26,8 @@ import javax.swing.JPanel;
 //*******************************************************************************
 // Class Definition Section
 
-public class BasicGameApp implements Runnable {
+public class BasicGameApp implements Runnable, MouseListener {
+    //todo: add KeyListener
 
    //Variable Definition Section
    //Declare the variables used in the program 
@@ -36,6 +41,8 @@ public class BasicGameApp implements Runnable {
 	public JFrame frame;
 	public Canvas canvas;
    public JPanel panel;
+
+   public Rectangle startHitbox;
    
 	public BufferStrategy bufferStrategy;
 
@@ -50,6 +57,10 @@ public class BasicGameApp implements Runnable {
     public Kunai kunai;
     public Shuriken shuriken;
     public Freeze_Buff freeze_buff;
+
+    public boolean start_game;
+
+    public boolean mouseheld;
 
    // Main method definition
    // This is the code that runs first and automatically
@@ -74,8 +85,15 @@ public class BasicGameApp implements Runnable {
         KunaiPic= Toolkit.getDefaultToolkit().getImage("Kunai.png");
         Freeze_BuffPic = Toolkit.getDefaultToolkit().getImage("Freeze_Buff.png");
 
+        startHitbox = new Rectangle(100,100,100,100);
+
+        start_game = false;
+
+        mouseheld = false;
+
 		ninja = new Ninja(10,100);
         //todo: do the same for other game elements
+
 
 	}// BasicGameApp()
 
@@ -102,8 +120,9 @@ public class BasicGameApp implements Runnable {
 	public void moveThings()
 	{
       //calls the move( ) code in the objects
-		ninja.move();
-
+		if(start_game == true) {
+            ninja.move();
+        }
 	}
 	
    //Pauses or sleeps the computer for the amount specified in milliseconds
@@ -155,16 +174,53 @@ public class BasicGameApp implements Runnable {
 		Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
 		g.clearRect(0, 0, WIDTH, HEIGHT);
 
-      //draw the image of the ninja
-		g.drawImage(ninjaPic, ninja.xpos, ninja.ypos, ninja.width, ninja.height, null);
-        g.drawRect(ninja.xpos+5, ninja.ypos+3, 47, 43);
+        //todo: make a better start button
 
-        g.drawImage(KunaiPic, kunai.xpos, kunai.ypos, kunai.width, kunai.height, null);
+        g.setColor(Color.blue);
+        g.fillRect(400,400,200,50);
 
-        g.drawImage(ShurikenPic, shuriken.xpos, shuriken.ypos, shuriken.width, shuriken.height, null);
+        if(start_game == true) {
+            //draw the image of the ninja
+            g.drawImage(ninjaPic, ninja.xpos, ninja.ypos, 100, 100, null);
 
+            g.drawImage(KunaiPic, kunai.xpos, kunai.ypos, kunai.width, kunai.height, null);
+
+            g.drawImage(ShurikenPic, shuriken.xpos, shuriken.ypos, shuriken.width, shuriken.height, null);
+
+        }
 		g.dispose();
 
 		bufferStrategy.show();
 	}
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        mouseheld = true;
+        System.out.println(e.getPoint());
+        Rectangle mouseHitbox = new Rectangle(e.getX(),e.getY(),1,1);
+        if(startHitbox.intersects(mouseHitbox)){
+            System.out.println("Game starts!");
+            start_game = true;
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        System.out.println("Mouse is present!");
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
 }
