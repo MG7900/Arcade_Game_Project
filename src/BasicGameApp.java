@@ -58,6 +58,8 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
     public Shuriken shuriken;
     public Freeze_Buff freeze_buff;
 
+    public Ninja[] ninjas;
+
     public boolean start_game;
 
     public boolean mouseheld;
@@ -177,10 +179,12 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
 
         g.setColor(Color.blue);
         g.fillRect(400, 400, 200, 50);
+        //place holder for actual start button
 
         if (start_game == true) {
             //draw the image of the ninja
             g.drawImage(ninjaPic, ninja.xpos, ninja.ypos, 100, 100, null);
+            g.drawRect(ninja.xpos, ninja.ypos, ninja.dx, ninja.dy);
 
             g.drawImage(KunaiPic, kunai.xpos, kunai.ypos, kunai.width, kunai.height, null);
 
@@ -234,43 +238,12 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
         System.out.println(e.getKeyChar());
         //gets the letters that were pressed, not e.g. backspace or space
 
-        //a code for each key is different, unique so
-
-//        if(e.getKeyCode() == 39){ //when up arrow is pressed
-//
-//            astro.dx = astro.dx - 1;
-//
-//            //the below code makes it always go up every time pressed up button
-//            // astro.dy = -Math.abs(astro.dy);
-//        }
-
     }
 
     @Override
     public void keyReleased(KeyEvent e) {   //key released is triggered everytime we stop touching a key
         System.out.println("I stopped touching " + e.getKeyCode());
-        //to see which key code we jsut released
 
-//        if(e.getKeyCode() == 38 ){  //38 is up arrow
-//            astro.isNorth = false;
-//            System.out.println("not going up");
-//        }
-//        if(e.getKeyCode() == 40 ){
-//            System.out.println("not going down");
-//
-//            astro.isSouth = false;
-//        }
-//        if(e.getKeyCode() == 39 ){
-//            System.out.println("not going east");
-//
-//            astro.isEast = false;
-//        }
-//        if(e.getKeyCode() == 37 ){
-//            System.out.println("not going west");
-//
-//            astro.isWest = false;
-//        }
-//
-//    }
+
     }
 }
