@@ -58,7 +58,7 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
     public Shuriken shuriken;
     public Freeze_Buff freeze_buff;
 
-    public Ninja[] ninjas;
+    public Ninja[] rebel_ninjas;
 
     public boolean start_game;
 
@@ -87,15 +87,29 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
         KunaiPic = Toolkit.getDefaultToolkit().getImage("Kunai.png");
         Freeze_BuffPic = Toolkit.getDefaultToolkit().getImage("Freeze_Buff.png");
 
-        startHitbox = new Rectangle(100, 100, 100, 100);
-
         start_game = false;
+
+        startHitbox = new Rectangle(400, 400, 200, 50);
+
+
 
         mouseheld = false;
 
         ninja = new Ninja(10, 100);
         //todo: do the same for other game elements
 
+        kunai = new Kunai(20,500);
+
+        shuriken = new Shuriken(40, 200);
+
+        //testing
+        rebel_ninjas = new Ninja[3];
+
+        for(int i = 0; i < rebel_ninjas.length; i++){
+            rebel_ninjas[i] = new Ninja((int)(Math.random()*1000),(int)(Math.random())*700);
+            rebel_ninjas[i].dx = (int)(Math.random()*5)-5;
+            rebel_ninjas[i].dy = (int)(Math.random()*5)-5;
+        }
 
     }// BasicGameApp()
 
@@ -147,6 +161,11 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
         // creates a canvas which is a blank rectangular area of the screen onto which the application can draw
         // and trap input events (Mouse and Keyboard events)
         canvas = new Canvas();
+
+        canvas.addKeyListener(this);
+        canvas.addMouseListener(this);
+        //todo: why does the above have to be there?
+
         canvas.setBounds(0, 0, WIDTH, HEIGHT);
         canvas.setIgnoreRepaint(true);
 
@@ -169,7 +188,7 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
 
     //paints things on the screen using bufferStrategy
     private void render() {
-        //todo: add keylistener and mouselistener etc
+        //todo: add keylistener and mouselistener etc✅
         //todo: render other elements
 
         Graphics2D g = (Graphics2D) bufferStrategy.getDrawGraphics();
@@ -177,19 +196,22 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
 
         //todo: make a better start button
 
-        g.setColor(Color.blue);
-        g.fillRect(400, 400, 200, 50);
-        //place holder for actual start button
-
         if (start_game == true) {
             //draw the image of the ninja
             g.drawImage(ninjaPic, ninja.xpos, ninja.ypos, 100, 100, null);
+
+            //todo:why do we need to make the new objects below in order for the kunai.xpos for example to not be "null"
             g.drawRect(ninja.xpos, ninja.ypos, ninja.dx, ninja.dy);
 
             g.drawImage(KunaiPic, kunai.xpos, kunai.ypos, kunai.width, kunai.height, null);
 
             g.drawImage(ShurikenPic, shuriken.xpos, shuriken.ypos, shuriken.width, shuriken.height, null);
 
+        }
+        if(start_game == false) {
+            g.setColor(Color.blue);
+            g.fillRect(400, 400, 200, 50);
+            //place holder for actual start button
         }
         g.dispose();
 
