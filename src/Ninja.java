@@ -5,6 +5,8 @@ import java.awt.*;
  */
 public class Ninja {
 
+    //todo:add feature where the ninja's image would turn to the according side if the horizontal direction changes
+
     //VARIABLE DECLARATION SECTION
     //Here's where you state which variables you are going to use.
     public String name;                //holds the name of the hero

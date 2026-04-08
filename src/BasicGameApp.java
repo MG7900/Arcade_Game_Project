@@ -58,7 +58,7 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
     public Shuriken shuriken;
     public Freeze_Buff freeze_buff;
 
-    public Ninja[] rebel_ninjas;
+    public Rebel_Ninjas[] rebel_ninjas;
 
     public boolean start_game;
 
@@ -103,10 +103,10 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
         shuriken = new Shuriken(40, 200);
 
         //testing
-        rebel_ninjas = new Ninja[3];
+        rebel_ninjas = new Rebel_Ninjas[3];
 
         for(int i = 0; i < rebel_ninjas.length; i++){
-            rebel_ninjas[i] = new Ninja((int)(Math.random()*1000),(int)(Math.random())*700);
+            rebel_ninjas[i] = new Rebel_Ninjas((int)(Math.random()*1000),(int)(Math.random())*700);
             rebel_ninjas[i].dx = (int)(Math.random()*5)-5;
             rebel_ninjas[i].dy = (int)(Math.random()*5)-5;
         }
@@ -137,6 +137,10 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
         //calls the move( ) code in the objects
         if (start_game == true) {
             ninja.move();
+
+            for(int m = 0; m < rebel_ninjas.length; m++){
+                rebel_ninjas[m].move();
+            }
         }
     }
 
@@ -206,6 +210,10 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
             g.drawImage(KunaiPic, kunai.xpos, kunai.ypos, kunai.width, kunai.height, null);
 
             g.drawImage(ShurikenPic, shuriken.xpos, shuriken.ypos, shuriken.width, shuriken.height, null);
+
+            for(int z = 0; z < rebel_ninjas.length; z++){
+                g.drawImage(ninjaPic, rebel_ninjas[z].xpos, rebel_ninjas[z].ypos, 100,100,null);
+            }
 
         }
         if(start_game == false) {
