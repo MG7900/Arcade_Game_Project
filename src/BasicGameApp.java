@@ -47,6 +47,7 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
     public BufferStrategy bufferStrategy;
 
     public Image ninjaPic;
+    public Image flippedninjaPic;
     public Image Freeze_BuffPic;
     public Image KunaiPic;
     public Image ShurikenPic;
@@ -83,6 +84,7 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
         //variable and objects
         //create (construct) the objects needed for the game and load up
         ninjaPic = Toolkit.getDefaultToolkit().getImage("Ninja.png"); //load the picture
+        flippedninjaPic = Toolkit.getDefaultToolkit().getImage("NinjaFlipped.png");
         ShurikenPic = Toolkit.getDefaultToolkit().getImage("Shuriken.png");
         KunaiPic = Toolkit.getDefaultToolkit().getImage("Kunai.png");
         Freeze_BuffPic = Toolkit.getDefaultToolkit().getImage("Freeze_Buff.png");
@@ -90,8 +92,6 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
         start_game = false;
 
         startHitbox = new Rectangle(400, 400, 200, 50);
-
-
 
         mouseheld = false;
 
@@ -107,8 +107,8 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
 
         for(int i = 0; i < rebel_ninjas.length; i++){
             rebel_ninjas[i] = new Rebel_Ninjas((int)(Math.random()*1000),(int)(Math.random())*700);
-            rebel_ninjas[i].dx = (int)(Math.random()*5)-5;
-            rebel_ninjas[i].dy = (int)(Math.random()*5)-5;
+            rebel_ninjas[i].dx = (int)(Math.random()*3)-5;
+            rebel_ninjas[i].dy = (int)(Math.random()*3)-5;
         }
 
     }// BasicGameApp()
@@ -202,7 +202,12 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
 
         if (start_game == true) {
             //draw the image of the ninja
-            g.drawImage(ninjaPic, ninja.xpos, ninja.ypos, 100, 100, null);
+            if(ninja.flip == true) {
+                g.drawImage(flippedninjaPic, ninja.xpos, ninja.ypos, 100, 100, null);
+            } else {
+
+                g.drawImage(ninjaPic, ninja.xpos, ninja.ypos, 100, 100, null);
+            }
 
             //todo:why do we need to make the new objects below in order for the kunai.xpos for example to not be "null"
             g.drawRect(ninja.xpos, ninja.ypos, ninja.dx, ninja.dy);
@@ -212,7 +217,12 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
             g.drawImage(ShurikenPic, shuriken.xpos, shuriken.ypos, shuriken.width, shuriken.height, null);
 
             for(int z = 0; z < rebel_ninjas.length; z++){
-                g.drawImage(ninjaPic, rebel_ninjas[z].xpos, rebel_ninjas[z].ypos, 100,100,null);
+                if(ninja.flip == true) {
+                    g.drawImage(flippedninjaPic, rebel_ninjas[z].xpos, rebel_ninjas[z].ypos, 100, 100, null);
+                } else {
+
+                    g.drawImage(ninjaPic, rebel_ninjas[z].xpos, rebel_ninjas[z].ypos, 100, 100, null);
+                }
             }
 
         }
@@ -265,8 +275,20 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println(e.getKeyChar());
+        System.out.println("I touched " + e.getKeyCode());
         //gets the letters that were pressed, not e.g. backspace or space
+        if(e.getKeyCode() == 37){
+            ninja.isLeft = true;
+        }
+        if(e.getKeyCode() == 38){
+            ninja.isUp = true;
+        }
+        if(e.getKeyCode() == 39){
+            ninja.isRight = true;
+        }
+        if(e.getKeyCode() == 40){
+            ninja.isDown = true;
+        }
 
     }
 
@@ -274,6 +296,17 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
     public void keyReleased(KeyEvent e) {   //key released is triggered everytime we stop touching a key
         System.out.println("I stopped touching " + e.getKeyCode());
 
-
+        if(e.getKeyCode() == 37){
+            ninja.isLeft = false;
+        }
+        if(e.getKeyCode() == 38){
+            ninja.isUp = false;
+        }
+        if(e.getKeyCode() == 39){
+            ninja.isRight = false;
+        }
+        if(e.getKeyCode() == 40){
+            ninja.isDown = false;
+        }
     }
 }

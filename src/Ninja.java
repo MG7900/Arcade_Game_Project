@@ -18,6 +18,13 @@ public class Ninja {
     public int height;
     public boolean isAlive;            //a boolean to denote if the hero is alive or dead.
     public Rectangle hitbox;
+    public boolean flip;
+
+    public boolean isUp;
+    public boolean isDown;
+    public boolean isLeft;
+    public boolean isRight;
+
 
     // METHOD DEFINITION SECTION
 
@@ -36,14 +43,28 @@ public class Ninja {
         height = 55;
         isAlive = true;
         hitbox = new Rectangle(xpos, ypos, width, height);
- 
+        flip = false;
     } // constructor
 
     //The move method.  Everytime this is run (or "called") the hero's x position and y position change by dx and dy
     public void move() {
         xpos = xpos + dx;
         ypos = ypos + dy;
- 
+
+        if(isUp = true){
+            dy = dy - 2;
+        }
+        if(isDown = true){
+            dy = dy + 2;
+        }
+        if(isLeft = true){
+            flip = true;
+            dx = dx - 2;
+        }
+        if(isRight = true){
+            dx = dx + 2;
+        }
+
     }
 }
 

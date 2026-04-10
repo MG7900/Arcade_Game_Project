@@ -6,7 +6,10 @@ public class Rebel_Ninjas {
     //todo: make the ninja created out of this able to follow the movement of the Ninja
     //todo: able to interact with buffs
     //todo: able to pick up and use weapons?
+    //todo:add feature where the ninja's image would turn to the according side if the horizontal direction changes
 
+    //VARIABLE DECLARATION SECTION
+    //Here's where you state which variables you are going to use.
     public String name;                //holds the name of the hero
     public int xpos;                //the x position
     public int ypos;                //the y position
@@ -16,6 +19,7 @@ public class Rebel_Ninjas {
     public int height;
     public boolean isAlive;            //a boolean to denote if the hero is alive or dead.
     public Rectangle hitbox;
+    public boolean flip;
 
     // METHOD DEFINITION SECTION
 
@@ -34,7 +38,7 @@ public class Rebel_Ninjas {
         height = 55;
         isAlive = true;
         hitbox = new Rectangle(xpos, ypos, width, height);
-
+        flip = false;
     } // constructor
 
     //The move method.  Everytime this is run (or "called") the hero's x position and y position change by dx and dy
@@ -42,7 +46,9 @@ public class Rebel_Ninjas {
         xpos = xpos + dx;
         ypos = ypos + dy;
 
+        if(dx >= 0){
+            flip = true;
+        }
     }
 }
-
 
