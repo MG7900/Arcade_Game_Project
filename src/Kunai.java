@@ -22,19 +22,26 @@ public class Kunai {
         dy = 15;
         width = 60;
         height = 60;
-        hitbox = new Rectangle(xpos, ypos, 55, 77);
+        hitbox = new Rectangle(xpos, ypos, 60, 80);
     }
 
     public void move() {
         //ths freeze buff also wraps around the map
-        if (xpos < 0 || xpos > 950) {
-            dx = -dx;
+        if(ypos > 700){
+            ypos = 0;
         }
-        if (ypos < 0 || ypos > 620) {
-            dy = -dy;
+        if(ypos < 0){
+            ypos = 700;
+        }
+
+        if(xpos > 850){
+            xpos = 0;
+        }
+        if(xpos < 0){
+            xpos = 850;
         }
         xpos = xpos + dx;
         ypos = ypos + dy;
-        hitbox = new Rectangle(xpos, ypos, 55, 60);
+        hitbox = new Rectangle(xpos, ypos, 60, 80);
     }
 }

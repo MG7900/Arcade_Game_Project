@@ -46,6 +46,14 @@ public class Rebel_Ninjas {
         xpos = xpos + dx;
         ypos = ypos + dy;
 
+        if(xpos < 0 || xpos > 950){
+            dx = -dx;
+        }
+
+        if(ypos < 0 || ypos > 620){
+            dy = -dy;
+        }
+
         if(dx >= 0){
             flip = true;
         }

@@ -100,7 +100,7 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
 
         kunai = new Kunai(20,500);
 
-        shuriken = new Shuriken(40, 200);
+        shuriken = new Shuriken((int)(Math.random()*1000),(int)(Math.random())*700);
 
         //testing
         rebel_ninjas = new Rebel_Ninjas[3];
@@ -108,7 +108,7 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
         for(int i = 0; i < rebel_ninjas.length; i++){
             rebel_ninjas[i] = new Rebel_Ninjas((int)(Math.random()*1000),(int)(Math.random())*700);
             rebel_ninjas[i].dx = (int)(Math.random()*3)-5;
-            rebel_ninjas[i].dy = (int)(Math.random()*3)-5;
+            rebel_ninjas[i].dy = (int)(Math.random()*3)-2;
         }
 
     }// BasicGameApp()
@@ -137,6 +137,8 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
         //calls the move( ) code in the objects
         if (start_game == true) {
             ninja.move();
+            shuriken.move();
+            kunai.move();
 
             for(int m = 0; m < rebel_ninjas.length; m++){
                 rebel_ninjas[m].move();
@@ -213,14 +215,15 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
             g.drawRect(ninja.xpos, ninja.ypos, ninja.dx, ninja.dy);
 
             g.drawImage(KunaiPic, kunai.xpos, kunai.ypos, kunai.width, kunai.height, null);
+            g.drawRect(kunai.xpos, kunai.ypos, kunai.dx, kunai.dy);
 
             g.drawImage(ShurikenPic, shuriken.xpos, shuriken.ypos, shuriken.width, shuriken.height, null);
+            g.drawRect(shuriken.xpos, shuriken.ypos, shuriken.dx, shuriken.dy);
 
             for(int z = 0; z < rebel_ninjas.length; z++){
                 if(ninja.flip == true) {
                     g.drawImage(flippedninjaPic, rebel_ninjas[z].xpos, rebel_ninjas[z].ypos, 100, 100, null);
                 } else {
-
                     g.drawImage(ninjaPic, rebel_ninjas[z].xpos, rebel_ninjas[z].ypos, 100, 100, null);
                 }
             }
