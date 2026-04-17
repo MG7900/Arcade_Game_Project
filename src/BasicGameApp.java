@@ -203,30 +203,37 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
         //todo: make a better start button
 
         if (start_game == true) {
-            //draw the image of the ninja
-            if(ninja.flip == true) {
-                g.drawImage(flippedninjaPic, ninja.xpos, ninja.ypos, 100, 100, null);
-            } else {
-
-                g.drawImage(ninjaPic, ninja.xpos, ninja.ypos, 100, 100, null);
+            //draw the image of the rebel ninjas as well as the rectangles
+            for(int i = 0; i < rebel_ninjas.length; i++){
+                g.drawImage(ninjaPic, rebel_ninjas[i].xpos, rebel_ninjas[i].ypos, rebel_ninjas[i].width, rebel_ninjas[i].height, null);
+                g.drawRect(rebel_ninjas[i].xpos, rebel_ninjas[i].ypos, rebel_ninjas[i].width, rebel_ninjas[i].height);
             }
 
+            /*todo: make this conditional
+            Apr 17, it instantly displays the flipped and the normal picture simultaneously, and the two versions
+            just stay together for the remainder of the code
+             */
+            for(int z = 0; z < rebel_ninjas.length; z++){
+                if(ninja.flip == true) {
+
+                    g.drawImage(flippedninjaPic, rebel_ninjas[z].xpos, rebel_ninjas[z].ypos, rebel_ninjas[z].width, rebel_ninjas[z].height, null);
+
+                } else {
+
+                    g.drawImage(ninjaPic, rebel_ninjas[z].xpos, rebel_ninjas[z].ypos, rebel_ninjas[z].width, rebel_ninjas[z].height, null);
+                }
+            }
+
+
             //todo:why do we need to make the new objects below in order for the kunai.xpos for example to not be "null"
-            g.drawRect(ninja.xpos, ninja.ypos, ninja.dx, ninja.dy);
+            g.drawImage(ninjaPic, ninja.xpos, ninja.ypos, ninja.width, ninja.height, null);
+            g.drawRect(ninja.xpos, ninja.ypos, ninja.width, ninja.height);
 
             g.drawImage(KunaiPic, kunai.xpos, kunai.ypos, kunai.width, kunai.height, null);
             g.drawRect(kunai.xpos, kunai.ypos, kunai.dx, kunai.dy);
 
             g.drawImage(ShurikenPic, shuriken.xpos, shuriken.ypos, shuriken.width, shuriken.height, null);
             g.drawRect(shuriken.xpos, shuriken.ypos, shuriken.dx, shuriken.dy);
-
-            for(int z = 0; z < rebel_ninjas.length; z++){
-                if(ninja.flip == true) {
-                    g.drawImage(flippedninjaPic, rebel_ninjas[z].xpos, rebel_ninjas[z].ypos, 100, 100, null);
-                } else {
-                    g.drawImage(ninjaPic, rebel_ninjas[z].xpos, rebel_ninjas[z].ypos, 100, 100, null);
-                }
-            }
 
         }
         if(start_game == false) {

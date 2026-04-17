@@ -5,7 +5,6 @@ public class Kunai {
     //todo: get the picture for this ✅
     //todo: think if this would be possible for the array-generated ninja's to also pick up and use
 
-
     public int xpos;
     public int ypos;
     public int dx;
