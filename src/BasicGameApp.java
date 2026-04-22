@@ -108,7 +108,9 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
         for(int i = 0; i < rebel_ninjas.length; i++){
             rebel_ninjas[i] = new Rebel_Ninjas((int)(Math.random()*1000),(int)(Math.random())*700);
             rebel_ninjas[i].dx = (int)(Math.random()*3)-5;
-            rebel_ninjas[i].dy = (int)(Math.random()*3)-2;
+            rebel_ninjas[i].dx = (int)(Math.random()*3)-2;
+
+            shuriken = new Shuriken(rebel_ninjas[i].xpos, rebel_ninjas[i].ypos);
         }
 
     }// BasicGameApp()
@@ -143,6 +145,15 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
             for(int m = 0; m < rebel_ninjas.length; m++){
                 rebel_ninjas[m].move();
             }
+        }
+    }
+
+    public void shuriken_throwing(){
+        //get ninja's x position and y position
+
+        for(int j = 0; j < rebel_ninjas.length; j++){
+
+
         }
     }
 
@@ -207,6 +218,9 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
             for(int i = 0; i < rebel_ninjas.length; i++){
                 g.drawImage(ninjaPic, rebel_ninjas[i].xpos, rebel_ninjas[i].ypos, rebel_ninjas[i].width, rebel_ninjas[i].height, null);
                 g.drawRect(rebel_ninjas[i].xpos, rebel_ninjas[i].ypos, rebel_ninjas[i].width, rebel_ninjas[i].height);
+
+                g.drawImage(ShurikenPic, rebel_ninjas[i].xpos, rebel_ninjas[i].ypos, shuriken.width, shuriken.height, null);
+                g.drawRect(shuriken.xpos, shuriken.ypos, shuriken.dx, shuriken.dy);
             }
 
             /*todo: make this conditional

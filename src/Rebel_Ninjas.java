@@ -20,6 +20,10 @@ public class Rebel_Ninjas {
     public boolean isAlive;            //a boolean to denote if the hero is alive or dead.
     public Rectangle hitbox;
     public boolean flip;
+    public boolean isUp;
+    public boolean isDown;
+    public boolean isLeft;
+    public boolean isRight;
 
     // METHOD DEFINITION SECTION
 
@@ -54,8 +58,18 @@ public class Rebel_Ninjas {
             dy = -dy;
         }
 
-        if(dx >= 0){
+        if(isUp = true){
+            dy = dy - 2;
+        }
+        if(isDown = true){
+            dy = dy + 2;
+        }
+        if(isLeft = true){
             flip = true;
+            dx = dx - 2;
+        }
+        if(isRight = true){
+            dx = dx + 2;
         }
     }
 }
