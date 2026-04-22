@@ -59,7 +59,10 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
     public Shuriken shuriken;
     public Freeze_Buff freeze_buff;
 
+    public int angle_facing;
+
     public Rebel_Ninjas[] rebel_ninjas;
+    public Shuriken[] shurikens;
 
     public boolean start_game;
 
@@ -110,7 +113,8 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
             rebel_ninjas[i].dx = (int)(Math.random()*3)-5;
             rebel_ninjas[i].dx = (int)(Math.random()*3)-2;
 
-            shuriken = new Shuriken(rebel_ninjas[i].xpos, rebel_ninjas[i].ypos);
+            shurikens[i] = new Shuriken(rebel_ninjas[i].xpos, rebel_ninjas[i].ypos);
+
         }
 
     }// BasicGameApp()
@@ -144,17 +148,17 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
 
             for(int m = 0; m < rebel_ninjas.length; m++){
                 rebel_ninjas[m].move();
+                shuriken.starting_angle(ninja.xpos, ninja.ypos);
+                shuriken.move();
             }
         }
     }
 
-    public void shuriken_throwing(){
-        //get ninja's x position and y position
+    public void starting_angle(int xpos, int ypos){
+        int target_x = xpos;
+        int target_y = ypos;
 
-        for(int j = 0; j < rebel_ninjas.length; j++){
-
-
-        }
+        angle_facing = (int) Math.atan(Math.toIntExact(target_x/target_y));
     }
 
     //Pauses or sleeps the computer for the amount specified in milliseconds
