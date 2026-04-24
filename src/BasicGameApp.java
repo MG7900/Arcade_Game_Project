@@ -58,6 +58,7 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
     public Kunai kunai;
     public Shuriken shuriken;
     public Freeze_Buff freeze_buff;
+    public Speed_Buff speed_buff;
 
     public int angle_facing;
 
@@ -103,10 +104,13 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
 
         kunai = new Kunai(20,500);
 
-        shuriken = new Shuriken((int)(Math.random()*1000),(int)(Math.random())*700);
+        shuriken = new Shuriken((int)(Math.random()*1000),(int)(Math.random()*700));
 
         //testing
         rebel_ninjas = new Rebel_Ninjas[3];
+
+        freeze_buff = new Freeze_Buff((int)(Math.random()*1000),(int)(Math.random()*700));
+        speed_buff = new Speed_Buff((int)(Math.random()*1000),(int)(Math.random()*700));
 
         for(int i = 0; i < rebel_ninjas.length; i++){
             rebel_ninjas[i] = new Rebel_Ninjas((int)(Math.random()*1000),(int)(Math.random())*700);
