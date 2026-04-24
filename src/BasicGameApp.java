@@ -62,6 +62,7 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
 
     public int angle_facing;
 
+    //the arrays used below
     public Rebel_Ninjas[] rebel_ninjas;
     public Shuriken[] shurikens;
 
@@ -104,16 +105,20 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
 
         kunai = new Kunai(20,500);
 
+        //the shurikens generated along with each rebel ninja
+        shurikens = new Shuriken[3];
+
+        //the shuriken that generates on the ground and could be used by the player only
         shuriken = new Shuriken((int)(Math.random()*1000),(int)(Math.random()*700));
 
         //testing
         rebel_ninjas = new Rebel_Ninjas[3];
 
-        freeze_buff = new Freeze_Buff((int)(Math.random()*1000),(int)(Math.random()*700));
-        speed_buff = new Speed_Buff((int)(Math.random()*1000),(int)(Math.random()*700));
+//        freeze_buff = new Freeze_Buff((int)(Math.random()*1000),(int)(Math.random()*700));
+//        speed_buff = new Speed_Buff((int)(Math.random()*1000),(int)(Math.random()*700));
 
         for(int i = 0; i < rebel_ninjas.length; i++){
-            rebel_ninjas[i] = new Rebel_Ninjas((int)(Math.random()*1000),(int)(Math.random())*700);
+            rebel_ninjas[i] = new Rebel_Ninjas((int)(Math.random()*1000),(int)(Math.random()*700));
             rebel_ninjas[i].dx = (int)(Math.random()*3)-5;
             rebel_ninjas[i].dx = (int)(Math.random()*3)-2;
 
@@ -135,9 +140,9 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
 
         //for the moment we will loop things forever.
         while (true) {
-
-            moveThings();  //move all the game objects
             render();  // paint the graphics
+            moveThings();  //move all the game objects
+
             pause(20); // sleep for 10 ms
         }
     }
@@ -146,14 +151,21 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
     public void moveThings() {
         //calls the move( ) code in the objects
         if (start_game == true) {
+            System.out.println("hi");
             ninja.move();
             shuriken.move();
             kunai.move();
 
             for(int m = 0; m < rebel_ninjas.length; m++){
                 rebel_ninjas[m].move();
-                shuriken.starting_angle(ninja.xpos, ninja.ypos);
-                shuriken.move();
+            }
+
+            //below is the movement for the shurikens that generates along with the rebel_ninjas
+            //todo: make this work
+            //todo: make the rebel_ninjas generate shurikens periodically and at different time intervals
+            for(int f = 0; f < shurikens.length; f++){
+                shurikens[f].starting_angle(ninja.xpos, ninja.ypos);
+                shurikens[f].move();
             }
         }
     }
@@ -220,6 +232,12 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
         g.clearRect(0, 0, WIDTH, HEIGHT);
 
         //todo: make a better start button
+        if(start_game == false) {
+            System.out.println("hello");
+            g.setColor(Color.blue);
+            g.fillRect(400, 400, 200, 50);
+            //place holder for actual start button
+        }
 
         if (start_game == true) {
             //draw the image of the rebel ninjas as well as the rectangles
@@ -227,8 +245,10 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
                 g.drawImage(ninjaPic, rebel_ninjas[i].xpos, rebel_ninjas[i].ypos, rebel_ninjas[i].width, rebel_ninjas[i].height, null);
                 g.drawRect(rebel_ninjas[i].xpos, rebel_ninjas[i].ypos, rebel_ninjas[i].width, rebel_ninjas[i].height);
 
-                g.drawImage(ShurikenPic, rebel_ninjas[i].xpos, rebel_ninjas[i].ypos, shuriken.width, shuriken.height, null);
-                g.drawRect(shuriken.xpos, shuriken.ypos, shuriken.dx, shuriken.dy);
+                for(int g = 0; g < shurikens.length; g++) {
+                    g.drawImage(ShurikenPic, rebel_ninjas[i].xpos, rebel_ninjas[i].ypos, shuriken.width, shuriken.height, null);
+                    g.drawRect(shurikens.xpos, shurikens.ypos, shurikens.dx, shurikens.dy);
+                }
             }
 
             /*todo: make this conditional
@@ -257,12 +277,14 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
             g.drawImage(ShurikenPic, shuriken.xpos, shuriken.ypos, shuriken.width, shuriken.height, null);
             g.drawRect(shuriken.xpos, shuriken.ypos, shuriken.dx, shuriken.dy);
 
+//            g.drawImage(Freeze_BuffPic, shuriken.xpos, shuriken.ypos, shuriken.width, shuriken.height, null);
+//            g.drawRect(shuriken.xpos, shuriken.ypos, shuriken.dx, shuriken.dy);
+//
+//            g.drawImage( , shuriken.xpos, shuriken.ypos, shuriken.width, shuriken.height, null);
+//            g.drawRect(shuriken.xpos, shuriken.ypos, shuriken.dx, shuriken.dy);
+
         }
-        if(start_game == false) {
-            g.setColor(Color.blue);
-            g.fillRect(400, 400, 200, 50);
-            //place holder for actual start button
-        }
+
         g.dispose();
 
         bufferStrategy.show();
