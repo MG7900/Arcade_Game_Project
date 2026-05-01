@@ -119,8 +119,8 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
 
         for(int i = 0; i < rebel_ninjas.length; i++){
             rebel_ninjas[i] = new Rebel_Ninjas((int)(Math.random()*1000),(int)(Math.random()*700));
-            rebel_ninjas[i].dx = (int)(Math.random()*3)-5;
-            rebel_ninjas[i].dx = (int)(Math.random()*3)-2;
+            rebel_ninjas[i].dx = (int)(Math.random()*10)-5;
+            rebel_ninjas[i].dx = (int)(Math.random()*10)-2;
 
             shurikens[i] = new Shuriken(rebel_ninjas[i].xpos, rebel_ninjas[i].ypos);
 
@@ -151,7 +151,7 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
     public void moveThings() {
         //calls the move( ) code in the objects
         if (start_game == true) {
-            System.out.println("hi");
+
             ninja.move();
             shuriken.move();
             kunai.move();
@@ -233,7 +233,6 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
 
         //todo: make a better start button
         if(start_game == false) {
-            System.out.println("hello");
             g.setColor(Color.blue);
             g.fillRect(400, 400, 200, 50);
             //place holder for actual start button
@@ -242,12 +241,17 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
         if (start_game == true) {
             //draw the image of the rebel ninjas as well as the rectangles
             for(int i = 0; i < rebel_ninjas.length; i++){
-                g.drawImage(ninjaPic, rebel_ninjas[i].xpos, rebel_ninjas[i].ypos, rebel_ninjas[i].width, rebel_ninjas[i].height, null);
+
+                if(rebel_ninjas[i].flip) {
+                    g.drawImage(flippedninjaPic, rebel_ninjas[i].xpos, rebel_ninjas[i].ypos, rebel_ninjas[i].width, rebel_ninjas[i].height, null);
+                } else {
+                    g.drawImage(ninjaPic, rebel_ninjas[i].xpos, rebel_ninjas[i].ypos, rebel_ninjas[i].width, rebel_ninjas[i].height, null);
+                }
                 g.drawRect(rebel_ninjas[i].xpos, rebel_ninjas[i].ypos, rebel_ninjas[i].width, rebel_ninjas[i].height);
 
-                for(int g = 0; g < shurikens.length; g++) {
+                for(int r = 0; r < shurikens.length; r++) {
                     g.drawImage(ShurikenPic, rebel_ninjas[i].xpos, rebel_ninjas[i].ypos, shuriken.width, shuriken.height, null);
-                    g.drawRect(shurikens.xpos, shurikens.ypos, shurikens.dx, shurikens.dy);
+                    g.drawRect(shurikens[r].xpos, shurikens[r].ypos, shurikens[r].width, shurikens[r].height);
                 }
             }
 
@@ -255,16 +259,7 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
             Apr 17, it instantly displays the flipped and the normal picture simultaneously, and the two versions
             just stay together for the remainder of the code
              */
-            for(int z = 0; z < rebel_ninjas.length; z++){
-                if(ninja.flip == true) {
 
-                    g.drawImage(flippedninjaPic, rebel_ninjas[z].xpos, rebel_ninjas[z].ypos, rebel_ninjas[z].width, rebel_ninjas[z].height, null);
-
-                } else {
-
-                    g.drawImage(ninjaPic, rebel_ninjas[z].xpos, rebel_ninjas[z].ypos, rebel_ninjas[z].width, rebel_ninjas[z].height, null);
-                }
-            }
 
 
             //todo:why do we need to make the new objects below in order for the kunai.xpos for example to not be "null"

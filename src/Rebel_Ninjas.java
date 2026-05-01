@@ -6,7 +6,7 @@ public class Rebel_Ninjas {
     //todo: make the ninja created out of this able to follow the movement of the Ninja
     //todo: able to interact with buffs
     //todo: able to pick up and use weapons?
-    //todo:add feature where the ninja's image would turn to the according side if the horizontal direction changes
+    //todo:add feature where the ninja's image would turn to the according side if the horizontal direction changes✅
 
     //VARIABLE DECLARATION SECTION
     //Here's where you state which variables you are going to use.
@@ -58,19 +58,26 @@ public class Rebel_Ninjas {
             dy = -dy;
         }
 
-        if(isUp = true){
-            dy = dy - 2;
-        }
-        if(isDown = true){
-            dy = dy + 2;
-        }
-        if(isLeft = true){
+        if(dx < 0){
             flip = true;
-            dx = dx - 2;
+        } else if (dx > 0){
+            flip = false;
         }
-        if(isRight = true){
-            dx = dx + 2;
-        }
+
+        //the previous version of flipped rebel ninja pic below
+//        if(isUp){
+//            dy = dy - 2;
+//        }
+//        if(isDown){
+//            dy = dy + 2;
+//        }
+//        if(isLeft){
+//            flip = true;
+//            dx = dx - 2;
+//        }
+//        if(isRight){
+//            dx = dx + 2;
+//        }
     }
 }
 
