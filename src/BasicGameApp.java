@@ -123,7 +123,6 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
             rebel_ninjas[i].dx = (int)(Math.random()*10)-2;
 
             shurikens[i] = new Shuriken(rebel_ninjas[i].xpos, rebel_ninjas[i].ypos);
-
         }
 
     }// BasicGameApp()
@@ -153,7 +152,17 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
         if (start_game == true) {
 
             ninja.move();
-            shuriken.move();
+            shuriken.move_by_player();
+
+//            //the below allows for the shuriken that the main character holds to return to it when it hits the edges of the screen
+//            if(shuriken.xpos < 0 || shuriken.xpos > 950){
+//                shuriken.xpos = ninja.xpos;
+//                shuriken.ypos = ninja.ypos;
+//            }
+//            if(shuriken.ypos < 0 || shuriken.ypos > 650){
+//                shuriken.xpos = ninja.xpos;
+//                shuriken.ypos = ninja.ypos;
+//            }
             kunai.move();
 
             for(int m = 0; m < rebel_ninjas.length; m++){
@@ -165,16 +174,22 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
             //todo: make the rebel_ninjas generate shurikens periodically and at different time intervals
             for(int f = 0; f < shurikens.length; f++){
                 shurikens[f].starting_angle(ninja.xpos, ninja.ypos);
-                shurikens[f].move();
+                shurikens[f].move_by_npc();
+
+                //the code below allows the shuriken to return to its thrower after it hits the border of the screen
+                if(shurikens[f].xpos < 0 || shurikens[f].xpos > 950){
+                    shurikens[f].xpos = rebel_ninjas[f].xpos;
+                    shurikens[f].ypos = rebel_ninjas[f].ypos;
+
+                }
+                if(shurikens[f].ypos < 0 || shurikens[f].ypos > 650){
+                    shurikens[f].xpos = rebel_ninjas[f].xpos;
+                    shurikens[f].ypos = rebel_ninjas[f].ypos;
+
+                }
+
             }
         }
-    }
-
-    public void starting_angle(int xpos, int ypos){
-        int target_x = xpos;
-        int target_y = ypos;
-
-        angle_facing = (int) Math.atan(Math.toIntExact(target_x/target_y));
     }
 
     //Pauses or sleeps the computer for the amount specified in milliseconds
@@ -235,32 +250,31 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
         if(start_game == false) {
             g.setColor(Color.blue);
             g.fillRect(400, 400, 200, 50);
-            //place holder for actual start button
+            //place-holder for actual start button
         }
 
         if (start_game == true) {
             //draw the image of the rebel ninjas as well as the rectangles
-            for(int i = 0; i < rebel_ninjas.length; i++){
+            for(int i = 0; i < rebel_ninjas.length; i++) {
 
-                if(rebel_ninjas[i].flip) {
+                if (rebel_ninjas[i].flip) {
                     g.drawImage(flippedninjaPic, rebel_ninjas[i].xpos, rebel_ninjas[i].ypos, rebel_ninjas[i].width, rebel_ninjas[i].height, null);
                 } else {
                     g.drawImage(ninjaPic, rebel_ninjas[i].xpos, rebel_ninjas[i].ypos, rebel_ninjas[i].width, rebel_ninjas[i].height, null);
                 }
-                g.drawRect(rebel_ninjas[i].xpos, rebel_ninjas[i].ypos, rebel_ninjas[i].width, rebel_ninjas[i].height);
-
-                for(int r = 0; r < shurikens.length; r++) {
-                    g.drawImage(ShurikenPic, rebel_ninjas[i].xpos, rebel_ninjas[i].ypos, shuriken.width, shuriken.height, null);
-                    g.drawRect(shurikens[r].xpos, shurikens[r].ypos, shurikens[r].width, shurikens[r].height);
-                }
+                    g.drawRect(rebel_ninjas[i].xpos, rebel_ninjas[i].ypos, rebel_ninjas[i].width, rebel_ninjas[i].height);
             }
+
+            for(int r = 0; r < shurikens.length; r++) {
+                g.drawImage(ShurikenPic, (int)shurikens[r].xpos, (int)shurikens[r].ypos, shuriken.width, shuriken.height, null);
+                g.drawRect((int)shurikens[r].xpos, (int)shurikens[r].ypos, shurikens[r].width, shurikens[r].height);
+            }
+
 
             /*todo: make this conditional
             Apr 17, it instantly displays the flipped and the normal picture simultaneously, and the two versions
             just stay together for the remainder of the code
              */
-
-
 
             //todo:why do we need to make the new objects below in order for the kunai.xpos for example to not be "null"
             g.drawImage(ninjaPic, ninja.xpos, ninja.ypos, ninja.width, ninja.height, null);
@@ -269,14 +283,13 @@ public class BasicGameApp implements Runnable, MouseListener, KeyListener {
             g.drawImage(KunaiPic, kunai.xpos, kunai.ypos, kunai.width, kunai.height, null);
             g.drawRect(kunai.xpos, kunai.ypos, kunai.dx, kunai.dy);
 
-            g.drawImage(ShurikenPic, shuriken.xpos, shuriken.ypos, shuriken.width, shuriken.height, null);
-            g.drawRect(shuriken.xpos, shuriken.ypos, shuriken.dx, shuriken.dy);
+            g.drawImage(ShurikenPic, (int)shuriken.xpos, (int)shuriken.ypos, shuriken.width, shuriken.height, null);
+            g.drawRect((int)shuriken.xpos, (int)shuriken.ypos, shuriken.width, shuriken.height);
 
 //            g.drawImage(Freeze_BuffPic, shuriken.xpos, shuriken.ypos, shuriken.width, shuriken.height, null);
 //            g.drawRect(shuriken.xpos, shuriken.ypos, shuriken.dx, shuriken.dy);
 //
-//            g.drawImage( , shuriken.xpos, shuriken.ypos, shuriken.width, shuriken.height, null);
-//            g.drawRect(shuriken.xpos, shuriken.ypos, shuriken.dx, shuriken.dy);
+
 
         }
 

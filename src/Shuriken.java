@@ -6,10 +6,10 @@ public class Shuriken {
     //todo: get the picture for this ✅
     //todo: think if this would be possible for the array-generated ninja's to also pick up and use
 
-    public int xpos;
-    public int ypos;
-    public int dx;
-    public int dy;
+    public double xpos;
+    public double ypos;
+    public double dx;
+    public double dy;
     public int width;
     public int height;
     public Rectangle hitbox;
@@ -28,10 +28,10 @@ public class Shuriken {
         dy = 15;
         width = 60;
         height = 60;
-        hitbox = new Rectangle(xpos, ypos, 55, 77);
+        hitbox = new Rectangle((int)xpos, (int)ypos, 55, 77);
     }
 
-    public void move() {
+    public void move_by_player() {
         //ths freeze buff also wraps around the map
         if (xpos < 0 || xpos > 950) {
             dx = -dx;
@@ -42,17 +42,27 @@ public class Shuriken {
         }
         xpos = xpos + dx;
         ypos = ypos + dy;
-        hitbox = new Rectangle(xpos, ypos, 55, 60);
+        hitbox = new Rectangle((int)xpos, (int)ypos, 55, 60);
 
     }
-        public void starting_angle(int xpos, int ypos){
-            target_x = xpos;
-            target_y = ypos;
 
-            angle_facing = (int) Math.atan(Math.toIntExact(target_x/target_y));
-            y_step = (int) Math.sin(Math.toRadians(angle_facing));
-            x_step = (int) Math.cos(Math.toRadians(angle_facing));
+    public void move_by_npc(){
+        xpos = xpos + dx;
+        ypos = ypos + dy;
+        hitbox = new Rectangle((int)xpos, (int)ypos, 55, 60);
+    }
 
+    //the below version now actually calculates and uses the angle
+    //it uses it by assigning the direction and speed of the shuriken
+        public void starting_angle(int target_x, int target_y){
+            double change_x = target_x - xpos;
+            double change_y = target_y - ypos;
+
+            double angle = Math.atan2(change_y, change_x);
+
+            int velocity = 5;
+            dx = (Math.cos(angle) * velocity);
+            dy = (Math.sin(angle) * velocity);
     }
 }
 

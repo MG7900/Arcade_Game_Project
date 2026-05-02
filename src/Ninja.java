@@ -37,7 +37,7 @@ public class Ninja {
     public Ninja(int pXpos, int pYpos) {
         xpos = pXpos;
         ypos = pYpos;
-        dx =1;
+        dx =10;
         dy =0;
         width = 55;
         height = 55;
